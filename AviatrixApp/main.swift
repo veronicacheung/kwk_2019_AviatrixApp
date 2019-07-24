@@ -9,24 +9,29 @@
 import Foundation
 
 func gauges(myPlane : Aviatrix) {
+    var data = AviatrixData()
+    
     print("Reading the gauges...")
     print(" ")
-//    print("| Running:  | ✅")
+    print("| Running:  | ✅")
     print("| Location:  | \(myPlane.location)")
-//    print("| Distance:  | \(myPlane.distanceTraveled) miles")
-//    print("| Fuel:      | \(myPlane.fuelLevel) gallons")
-//    print("| Max Fuel:  | \(myPlane.maxFuel) gallons")
-//    print("| MPG:       | \(myPlane.milesPerGallon)")
-//    print("| Fuel Bill: | \(myPlane.fuelCost)")
+    print("| Distance:  | \(myPlane.distanceTraveled) miles")
+    print("| Fuel:      | \(myPlane.fuelLevel) gallons")
+    print("| Max Fuel:  | \(myPlane.maxFuel) gallons")
+    print("| MPG:       | \(myPlane.milesPerGallon)")
+    print("| Fuel Bill: | \(myPlane.fuelCost)")
 
 }
+
+let data = AviatrixData()
+
 func fly(myPlane : Aviatrix) {
     print("Where would you like to fly to? ")
     print(" ")
     let destinations = myPlane.knownDestinations()
     
     for (index, city) in destinations.enumerated() {
-        let distance = myPlane.distanceTo(target : city)
+        let distance = myPlane.distanceTo(destination : city)
         print("\(index): \(city), \(distance) miles")
     }
     
@@ -55,8 +60,8 @@ func refuel(myPlane : Aviatrix) {
     let refuelData = myPlane.refuel()
     
     print("Refueling...")
-    print("⛽ Here in _________, jet fuel costs _________")
-    print("⛽ You refueled _________ gallons totaling _________")
+    print("⛽ Here in \(myPlane.location), jet fuel costs \(data.fuelPrices[myPlane.location]!)")
+    print("⛽ You refueled \(myPlane.addedFuel) gallons totaling \(myPlane.totalCost)")
 }
 
 func fuelCheck(myPlane : Aviatrix, destination : String) -> Bool {
@@ -74,7 +79,7 @@ func fuelCheck(myPlane : Aviatrix, destination : String) -> Bool {
     return true
 }
 
-var plane = Aviatrix(aviatrixName: "Grace, Veronica and Avery", currentLocation: "St. Louis")
+var plane = Aviatrix(aviatrixName: "GVA", currentLocation: "St. Louis")
 
 print("Welcome to the Aviatrix Flight System by \(plane.author)")
 plane.start()
